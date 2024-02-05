@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:43:21 by escastel          #+#    #+#             */
-/*   Updated: 2024/01/25 13:11:40 by escastel         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:00:53 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,25 @@ void	ft_leaks(void)
 	system("leaks -q philo");
 }
 
-static void	print_values(t_philo *philo)
+static void	print_values(t_monitor *monitor)
 {
-	printf("num_of_philos: %d\n", philo->num_of_philos);
-	printf("num_of_philos: %d\n", philo->time_to_die);
-	printf("num_of_philos: %d\n", philo->time_to_eat);
-	printf("num_of_philos: %d\n", philo->time_to_sleep);
-	printf("num_of_meals: %d\n", philo->num_of_meals);
+	printf("num_of_philos: %d\n", monitor->num_of_philos);
+	printf("time_to_die: %d ms\n", monitor->time_to_die);
+	printf("time_to_eat: %d ms\n", monitor->time_to_eat);
+	printf("time_to_sleep: %d ms\n", monitor->time_to_sleep);
+	printf("num_of_meals: %d\n", monitor->num_of_meals);
 }
 
 int	main(int argc, char **argv)
 {
-	t_philo	*philo;
+	t_monitor	*monitor;
 
 	/* atexit(ft_leaks); */
-	philo = (t_philo *)malloc(sizeof(t_philo));
+	monitor = (t_monitor *)malloc(sizeof(t_monitor));
 	if (argc < 5 || argc > 6)
 		return (printf("Error\n"), 1);
-	if (check_and_save(argv + 1, philo))
+	if (check_and_save(argv + 1, monitor))
 		return (1);
-	print_values(philo);
+	print_values(monitor);
 	return (0);
 }
