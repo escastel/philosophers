@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:34:19 by escastel          #+#    #+#             */
-/*   Updated: 2024/02/05 16:54:11 by escastel         ###   ########.fr       */
+/*   Updated: 2024/02/08 11:26:59 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ typedef struct s_monitor
 	int				time_to_sleep;
 	int				num_of_meals;
 	int				forks;
-	int				meals;
 	long int		time;
-	pthread_mutex_t	*forks;
+	pthread_mutex_t	*forks_mutex;
+	pthread_t		*threads;
 	t_philo			*philo;
 }	t_monitor;
 

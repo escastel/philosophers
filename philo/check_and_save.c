@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 12:16:57 by escastel          #+#    #+#             */
-/*   Updated: 2024/02/05 15:17:30 by escastel         ###   ########.fr       */
+/*   Updated: 2024/02/08 12:34:27 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,11 @@ static int	save_args(char **str, t_monitor *monitor)
 	}
 	else
 		monitor->num_of_meals = -1;
+	monitor->time = get_time();
 	return (0);
 }
 
-static void	initialize(t_monitor *monitor)
+static void	save_data(t_monitor *monitor)
 {
 	t_philo	*philo;
 	int		i;
@@ -71,12 +72,11 @@ static void	initialize(t_monitor *monitor)
 	i = 1;
 	while (i <= monitor->num_of_philos)
 	{
-		philo->id = i;
-		philo->fork_id = i;
-		philo->meals = 0;
-		philo->time_last_meal = 0;
-		monitor->meals = 0;
-		monitor->time = 0;
+		philo[i].id = i;
+		philo[i].fork_id = i;
+		philo[i].meals = 0;
+		philo[i].last_meal = 0;
+		philo[i].monitor = &monitor;
 		i++;
 	}
 }
@@ -88,6 +88,6 @@ int	check_and_save(char **str, t_monitor *monitor)
 		return (printf("Error\n"), 1);
 	if (save_args(str, monitor))
 		return (printf("Error\n"), 1);
-	initialize(monitor);
+	save_data(monitor);
 	return (0);
 }

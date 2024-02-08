@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:58:55 by escastel          #+#    #+#             */
-/*   Updated: 2024/02/05 17:11:45 by escastel         ###   ########.fr       */
+/*   Updated: 2024/02/08 14:38:34 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	initialize_mutex(t_monitor *monitor)
 	int	i;
 
 	i = 1;
-	while (i <= forks)
+	while (i <= monitor->forks)
 	{
-		if (pthread_mutex_init(&monitor->forks[i], NULL))
+		if (pthread_mutex_init(&monitor->forks_mutex[i], NULL))
 			return (1);
 		i++;
 	}
@@ -28,7 +28,8 @@ int	initialize_mutex(t_monitor *monitor)
 
 int	initialize_threads(t_monitor *monitor)
 {
-	int	i;
+	pthread_t	ctrl;
+	int			i;
 
 	i = 1;
 	while (i <= monitor->num_of_philos)

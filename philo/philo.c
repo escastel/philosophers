@@ -6,13 +6,13 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:43:21 by escastel          #+#    #+#             */
-/*   Updated: 2024/01/29 13:00:53 by escastel         ###   ########.fr       */
+/*   Updated: 2024/02/08 12:39:22 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_leaks(void)
+/* void	ft_leaks(void)
 {
 	system("leaks -q philo");
 }
@@ -24,7 +24,7 @@ static void	print_values(t_monitor *monitor)
 	printf("time_to_eat: %d ms\n", monitor->time_to_eat);
 	printf("time_to_sleep: %d ms\n", monitor->time_to_sleep);
 	printf("num_of_meals: %d\n", monitor->num_of_meals);
-}
+} */
 
 int	main(int argc, char **argv)
 {
@@ -36,6 +36,5 @@ int	main(int argc, char **argv)
 		return (printf("Error\n"), 1);
 	if (check_and_save(argv + 1, monitor))
 		return (1);
-	print_values(monitor);
 	return (0);
 }
