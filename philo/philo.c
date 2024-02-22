@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:43:21 by escastel          #+#    #+#             */
-/*   Updated: 2024/02/08 12:39:22 by escastel         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:46:49 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 {
 	system("leaks -q philo");
 }
+atexit(ft_leaks);
 
 static void	print_values(t_monitor *monitor)
 {
@@ -28,13 +29,14 @@ static void	print_values(t_monitor *monitor)
 
 int	main(int argc, char **argv)
 {
-	t_monitor	*monitor;
+	t_control	*control;
 
-	/* atexit(ft_leaks); */
-	monitor = (t_monitor *)malloc(sizeof(t_monitor));
+	control = (t_control *)malloc(sizeof(t_control));
 	if (argc < 5 || argc > 6)
 		return (printf("Error\n"), 1);
-	if (check_and_save(argv + 1, monitor))
+	if (check(argv + 1))
+		return (1);
+	if (initialize_strcutures(control, argv + 1))
 		return (1);
 	return (0);
 }

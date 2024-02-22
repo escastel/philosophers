@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:34:19 by escastel          #+#    #+#             */
-/*   Updated: 2024/02/08 11:26:59 by escastel         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:40:36 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,40 @@
 typedef struct s_philo
 {
 	int					id;
-	int					fork_id;
-	int					meals;
-	long int			last_meal;
-	struct s_monitor	*monitor;
+	int					eating;
+	int					meals_made;
+	int					*dead_flag;
+	size_t				last_meal;
+	pthread_mutex_t		r_fork;
+	pthread_mutex_t		l_fork;
+	pthread_mutex_t		*dead;
+	pthread_mutex_t		*meal;
+	pthread_mutex_t		*write;
+	struct s_control	*control;
 }	t_philo;
 
-typedef struct s_monitor
-{
-	int				num_of_philos;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				num_of_meals;
-	int				forks;
-	long int		time;
-	pthread_mutex_t	*forks_mutex;
-	pthread_t		*threads;
-	t_philo			*philo;
-}	t_monitor;
+/* pthread_t			thread; ^^^ */
 
-int	ft_atoi(const char *str);
-int	check_and_save(char **str, t_monitor *monitor);
+typedef struct s_control
+{
+	int				dead_flag;
+	int				num_philos;
+	int				num_meals;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	size_t			start_time;
+	pthread_t		*threads;
+	pthread_mutex_t	dead;
+	pthread_mutex_t	meal;
+	pthread_mutex_t	write;
+	pthread_mutex_t	*forks;
+	t_philo			*philos;
+}	t_control;
+
+int		check(char **str);
+int		initialize_strcutures(t_control *control, char **str);
+int		ft_atoi(const char *str);
+size_t	get_time(void);
 
 #endif

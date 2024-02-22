@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 12:52:54 by escastel          #+#    #+#             */
-/*   Updated: 2024/01/25 12:54:01 by escastel         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:16:54 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,13 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (r * j);
+}
+
+size_t	get_time(void)
+{
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL))
+		printf("Error\n");
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
