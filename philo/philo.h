@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:34:19 by escastel          #+#    #+#             */
-/*   Updated: 2024/02/22 16:40:36 by escastel         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:25:08 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@
 typedef struct s_philo
 {
 	int					id;
-	int					eating;
 	int					meals_made;
+	int					*num_philos;
 	int					*dead_flag;
 	size_t				last_meal;
+	size_t				*time_to_die;
+	size_t				*time_to_eat;
+	size_t				*time_to_sleep;
 	pthread_mutex_t		r_fork;
 	pthread_mutex_t		l_fork;
 	pthread_mutex_t		*dead;
@@ -45,7 +48,6 @@ typedef struct s_control
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	size_t			start_time;
 	pthread_t		*threads;
 	pthread_mutex_t	dead;
 	pthread_mutex_t	meal;
@@ -55,7 +57,11 @@ typedef struct s_control
 }	t_control;
 
 int		check(char **str);
-int		initialize_strcutures(t_control *control, char **str);
+int		initialize_structures(t_control *control, char **str);
+int		threads(t_control *control);
+void	routine(void *arg);
+void	monitoring(void *arg);
+void	print_msg(char	*print, t_philo *philo);
 int		ft_atoi(const char *str);
 size_t	get_time(void);
 

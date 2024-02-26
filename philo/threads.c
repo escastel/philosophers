@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:43:11 by escastel          #+#    #+#             */
-/*   Updated: 2024/02/22 16:52:44 by escastel         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:06:38 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,12 @@
 	Hacer limpieza en cada return (1); >>
 */
 
-static void	monitoring(void *arg)
-{
-	t_control	*ctrl;
-
-	ctrl = (t_control *)arg;
-}
-
-static void	routine(void *arg)
-{
-	t_control	*ctrl;
-
-	ctrl = (t_control *)arg;
-}
-
 int	threads(t_control *control)
 {
 	pthread_t	monitor;
 	int			i;
 
-	if (pthread_create(&monitor, NULL, &monitoring, control->philos))
+	if (pthread_create(&monitor, NULL, &monitoring, control))
 		return (1);
 	i = 0;
 	while (i < control->num_philos)
@@ -45,9 +31,9 @@ int	threads(t_control *control)
 			return (1);
 		i++;
 	}
-	i = 0;
 	if (pthread_join(monitor, NULL))
 		return (1);
+	i = 0;
 	while (i < control->num_philos)
 	{
 		if (pthread_join(control->threads[i], NULL))

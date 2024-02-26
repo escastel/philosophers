@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:43:21 by escastel          #+#    #+#             */
-/*   Updated: 2024/02/22 16:46:49 by escastel         ###   ########.fr       */
+/*   Updated: 2024/02/26 10:40:43 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 		return (printf("Error\n"), 1);
 	if (check(argv + 1))
 		return (1);
-	if (initialize_strcutures(control, argv + 1))
+	if (initialize_structures(control, argv + 1))
 		return (1);
 	return (0);
 }

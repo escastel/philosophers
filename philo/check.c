@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 12:16:57 by escastel          #+#    #+#             */
-/*   Updated: 2024/02/21 12:05:48 by escastel         ###   ########.fr       */
+/*   Updated: 2024/02/26 10:36:57 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	check(char **str)
 	printf("Función: check_and_save\n"); // Borrar
 	if (check_content(str))
 		return (printf("Error\n"), 1);
-	if (save_args(str))
+	if (check_int(str))
 		return (printf("Error\n"), 1);
 	return (0);
 }

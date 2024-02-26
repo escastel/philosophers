@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:58:55 by escastel          #+#    #+#             */
-/*   Updated: 2024/02/22 16:56:46 by escastel         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:26:47 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,13 @@ static void	initialize_philos(t_control	*control, t_philo *philo)
 	while (i <= control->num_philos)
 	{
 		philo[i].id = i + 1;
-		philo[i].eating = 0;
 		philo[i].meals_made = 0;
+		philo[i].num_philos = &control->num_philos;
 		philo[i].dead_flag = &control->dead_flag;
 		philo[i].last_meal = get_time();
+		philo[i].time_to_die = &control->time_to_die;
+		philo[i].time_to_eat = &control->time_to_eat;
+		philo[i].time_to_sleep = &control->time_to_sleep;
 		philo[i].dead = &control->dead;
 		philo[i].meal = &control->meal;
 		philo[i].write = &control->write;
@@ -71,7 +74,6 @@ static int	initialize_control(t_control *control, char **str)
 	control->time_to_die = ft_atoi(str[1]);
 	control->time_to_eat = ft_atoi(str[2]);
 	control->time_to_sleep = ft_atoi(str[3]);
-	control->start_time = get_time();
 	if (str[4])
 		control->num_meals = ft_atoi(str[4]);
 	else
@@ -80,7 +82,7 @@ static int	initialize_control(t_control *control, char **str)
 	return (0);
 }
 
-int	initialize_strcutures(t_control *control, char **str)
+int	initialize_structures(t_control *control, char **str)
 {
 	initialize_philos(control, control->philos);
 	if (initialize_control(control, str))
