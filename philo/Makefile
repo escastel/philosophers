@@ -4,7 +4,11 @@ PHILO = philo.a
 
 FILES = philo.c \
 utils.c \
-check_and_save.c \
+check.c \
+initialize.c \
+threads.c \
+routine.c \
+monitoring.c \
 
 OBJECTS = $(FILES:.c=.o)
 
