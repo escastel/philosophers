@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:43:21 by escastel          #+#    #+#             */
-/*   Updated: 2024/02/26 10:40:43 by escastel         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:07:55 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,7 @@
 	system("leaks -q philo");
 }
 atexit(ft_leaks);
-
-static void	print_values(t_monitor *monitor)
-{
-	printf("num_of_philos: %d\n", monitor->num_of_philos);
-	printf("time_to_die: %d ms\n", monitor->time_to_die);
-	printf("time_to_eat: %d ms\n", monitor->time_to_eat);
-	printf("time_to_sleep: %d ms\n", monitor->time_to_sleep);
-	printf("num_of_meals: %d\n", monitor->num_of_meals);
-} */
+*/
 
 int	main(int argc, char **argv)
 {
@@ -38,5 +30,6 @@ int	main(int argc, char **argv)
 		return (1);
 	if (initialize_structures(control, argv + 1))
 		return (1);
+	threads(control);
 	return (0);
 }

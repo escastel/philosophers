@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 12:52:54 by escastel          #+#    #+#             */
-/*   Updated: 2024/02/26 16:30:03 by escastel         ###   ########.fr       */
+/*   Updated: 2024/03/01 11:55:57 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_atoi(const char *str)
 	return (r * j);
 }
 
-size_t	get_time(void)
+long	get_time(void)
 {
 	struct timeval	time;
 
@@ -48,18 +48,19 @@ size_t	get_time(void)
 
 void	print_msg(char	*print, t_philo *philo)
 {
-	size_t	time;
+	long	time;
 
-	pthread_mutex_lock(philo->write);
-	time = get_time();
-	printf("%zu %d %s\n", time, philo->id, print);
-	pthread_mutex_unlock(philo->write);
+	pthread_mutex_lock(&philo->control->write);
+	time = get_time() - philo->control->start_time;
+	if (time < philo->control->time_to_die)
+		printf("%ld %d %s\n", time, philo->id, print);
+	pthread_mutex_unlock(&philo->control->write);
 	return ;
 }
 
-void	ft_usleep(size_t time)
+void	ft_usleep(long time)
 {
-	size_t	end;
+	long	end;
 
 	end = get_time();
 	while ((get_time() - end) < time)

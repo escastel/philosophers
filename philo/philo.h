@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:34:19 by escastel          #+#    #+#             */
-/*   Updated: 2024/02/26 16:25:08 by escastel         ###   ########.fr       */
+/*   Updated: 2024/03/01 11:39:39 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,11 @@
 typedef struct s_philo
 {
 	int					id;
+	int					dead_flag;
 	int					meals_made;
-	int					*num_philos;
-	int					*dead_flag;
-	size_t				last_meal;
-	size_t				*time_to_die;
-	size_t				*time_to_eat;
-	size_t				*time_to_sleep;
+	long				last_meal;
 	pthread_mutex_t		r_fork;
 	pthread_mutex_t		l_fork;
-	pthread_mutex_t		*dead;
-	pthread_mutex_t		*meal;
-	pthread_mutex_t		*write;
 	struct s_control	*control;
 }	t_philo;
 
@@ -42,12 +35,13 @@ typedef struct s_philo
 
 typedef struct s_control
 {
-	int				dead_flag;
+	int				end_flag;
 	int				num_philos;
 	int				num_meals;
-	size_t			time_to_die;
-	size_t			time_to_eat;
-	size_t			time_to_sleep;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			start_time;
 	pthread_t		*threads;
 	pthread_mutex_t	dead;
 	pthread_mutex_t	meal;
@@ -59,10 +53,11 @@ typedef struct s_control
 int		check(char **str);
 int		initialize_structures(t_control *control, char **str);
 int		threads(t_control *control);
-void	routine(void *arg);
-void	monitoring(void *arg);
+void	*routine(void *arg);
+void	*monitoring(void *arg);
 void	print_msg(char	*print, t_philo *philo);
 int		ft_atoi(const char *str);
-size_t	get_time(void);
+long	get_time(void);
+void	ft_usleep(long time);
 
 #endif
