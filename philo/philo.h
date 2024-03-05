@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:34:19 by escastel          #+#    #+#             */
-/*   Updated: 2024/03/01 11:39:39 by escastel         ###   ########.fr       */
+/*   Updated: 2024/03/05 18:36:13 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 typedef struct s_philo
 {
 	int					id;
-	int					dead_flag;
 	int					meals_made;
 	long				last_meal;
 	pthread_mutex_t		r_fork;

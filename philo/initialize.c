@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:58:55 by escastel          #+#    #+#             */
-/*   Updated: 2024/03/01 11:37:59 by escastel         ###   ########.fr       */
+/*   Updated: 2024/03/05 18:16:20 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	initialize_philos(t_control	*control, t_philo *philo)
 	while (i < control->num_philos)
 	{
 		philo[i].id = i + 1;
-		philo[i].dead_flag = 0;
 		philo[i].meals_made = 0;
 		philo[i].last_meal = get_time();
 		philo[i].r_fork = control->forks[i];

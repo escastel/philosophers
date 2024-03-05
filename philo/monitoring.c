@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:17 by escastel          #+#    #+#             */
-/*   Updated: 2024/03/01 11:27:59 by escastel         ###   ########.fr       */
+/*   Updated: 2024/03/05 18:41:22 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@ static int	check_dead(t_control *control)
 	while (i < control->num_philos)
 	{
 		time = get_time() - philo[i].last_meal;
-		if (time >= philo[i].last_meal)
+		if (time >= control->time_to_die)
 		{
-			pthread_mutex_lock(&philo[i].control->dead);
-			print_msg("died", philo);
-			philo[i].dead_flag = 1;
-			philo[i].control->end_flag = 1;
-			pthread_mutex_unlock(&philo[i].control->dead);
+			pthread_mutex_lock(&control->dead);
+			print_msg("died", &philo[i]);
+			control->end_flag = 1;
+			pthread_mutex_unlock(&control->dead);
 			return (1);
 		}
 		i++;
