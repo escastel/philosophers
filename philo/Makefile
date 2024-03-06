@@ -4,7 +4,6 @@ PHILO = philo.a
 
 FILES = philo.c \
 utils.c \
-check.c \
 initialize.c \
 threads.c \
 routine.c \

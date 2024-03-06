@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:43:21 by escastel          #+#    #+#             */
-/*   Updated: 2024/03/06 17:04:37 by escastel         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:23:04 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,56 @@
 {
 	system("leaks -q philo");
 }
-atexit(ft_leaks);
-*/
+atexit(ft_leaks); */
+
+static int	check_content(char **str)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	while (str[j])
+	{
+		i = 0;
+		while (str[j][i])
+		{
+			if (!(str[j][i] >= '0' && str[j][i] <= '9'))
+			{
+				printf("The arguments must be digits\n");
+				return (1);
+			}
+			i++;
+		}
+		j++;
+	}
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
 	t_control		*control;
 	pthread_mutex_t	forks[200];
 
-	control = (t_control *)malloc(sizeof(t_control));
 	if (argc < 5 || argc > 6)
-		return (printf("Error\n"), 1);
-	if (check(argv + 1))
+	{
+		printf("Wrong number of arguments\n");
 		return (1);
+	}
+	control = (t_control *)malloc(sizeof(t_control));
+	if (!control)
+	{
+		printf("Problem with allocating memory with malloc\n");
+		free(control);
+		return (1);
+	}
+	if (check_content(argv + 1))
+	{
+		free(control);
+		return (1);
+	}
 	if (initialize_structures(control, argv + 1, forks))
 		return (1);
 	threads(control);
+	ft_clean_program(control);
 	return (0);
 }

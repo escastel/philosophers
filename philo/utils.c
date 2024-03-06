@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 12:52:54 by escastel          #+#    #+#             */
-/*   Updated: 2024/03/06 17:11:54 by escastel         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:02:57 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,21 @@ void	ft_usleep(long time)
 	while ((get_time() - end) < time)
 		usleep(500);
 	return ;
+}
+
+void	ft_clean_program(t_control *control)
+{
+	int	i;
+
+	pthread_mutex_destroy(&control->meal);
+	pthread_mutex_destroy(&control->dead);
+	pthread_mutex_destroy(&control->write);
+	i = 0;
+	while (i < control->num_philos)
+	{
+		pthread_mutex_destroy(control->philos[i].r_fork);
+		i++;
+	}
+	free(control->philos);
+	free(control);
 }

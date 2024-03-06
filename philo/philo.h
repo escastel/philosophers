@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:34:19 by escastel          #+#    #+#             */
-/*   Updated: 2024/03/06 17:09:11 by escastel         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:02:08 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,9 @@ typedef struct s_control
 	pthread_mutex_t	dead;
 	pthread_mutex_t	meal;
 	pthread_mutex_t	write;
-	pthread_mutex_t	*forks;
 	t_philo			*philos;
 }	t_control;
 
-int		check(char **str);
 int		initialize_structures(t_control *control, char **str,
 			pthread_mutex_t *forks);
 int		threads(t_control *control);
@@ -57,5 +55,6 @@ void	print_msg(char	*print, t_philo *philo);
 int		ft_atoi(const char *str);
 long	get_time(void);
 void	ft_usleep(long time);
+void	ft_clean_program(t_control *control);
 
 #endif

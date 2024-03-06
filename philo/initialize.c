@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:58:55 by escastel          #+#    #+#             */
-/*   Updated: 2024/03/06 17:09:36 by escastel         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:19:40 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,10 @@ static int	initialize_control(t_control *control, char **str)
 
 	philo = (t_philo *)malloc(sizeof(t_philo) * control->num_philos);
 	if (!philo)
+	{
+		free(philo);
 		return (1);
-	control->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
-			* control->num_philos);
-	if (!control->forks)
-		return (1);
+	}
 	control->end_flag = 0;
 	control->num_philos = ft_atoi(str[0]);
 	control->time_to_die = ft_atoi(str[1]);
@@ -80,9 +79,16 @@ int	initialize_structures(t_control *control, char **str,
 	pthread_mutex_t *forks)
 {
 	if (initialize_control(control, str))
+	{
+		printf("Problem with allocating memory with malloc\n");
 		return (1);
+	}
 	if (initialize_mutex(control, forks))
+	{
+		printf("Problem with mutex creation\n");
+		ft_clean_program(control);
 		return (1);
+	}
 	initialize_philos(control, forks);
 	return (0);
 }
