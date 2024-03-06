@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 12:52:54 by escastel          #+#    #+#             */
-/*   Updated: 2024/03/05 18:36:03 by escastel         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:11:54 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ void	print_msg(char	*print, t_philo *philo)
 
 	pthread_mutex_lock(&philo->control->write);
 	time = get_time() - philo->control->start_time;
-	if (time < philo->control->time_to_die)
-		printf("%ld %d %s\n", time, philo->id, print);
-	else
+	if (!philo->control->end_flag)
 		printf("%ld %d %s\n", time, philo->id, print);
 	pthread_mutex_unlock(&philo->control->write);
 	return ;

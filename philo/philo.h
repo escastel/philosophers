@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:34:19 by escastel          #+#    #+#             */
-/*   Updated: 2024/03/05 18:36:13 by escastel         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:09:11 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,11 @@ typedef struct s_philo
 	int					id;
 	int					meals_made;
 	long				last_meal;
-	pthread_mutex_t		r_fork;
-	pthread_mutex_t		l_fork;
+	pthread_t			thread;
+	pthread_mutex_t		*r_fork;
+	pthread_mutex_t		*l_fork;
 	struct s_control	*control;
 }	t_philo;
-
-/* pthread_t			thread; ^^^ */
 
 typedef struct s_control
 {
@@ -41,7 +40,6 @@ typedef struct s_control
 	long			time_to_eat;
 	long			time_to_sleep;
 	long			start_time;
-	pthread_t		*threads;
 	pthread_mutex_t	dead;
 	pthread_mutex_t	meal;
 	pthread_mutex_t	write;
@@ -50,7 +48,8 @@ typedef struct s_control
 }	t_control;
 
 int		check(char **str);
-int		initialize_structures(t_control *control, char **str);
+int		initialize_structures(t_control *control, char **str,
+			pthread_mutex_t *forks);
 int		threads(t_control *control);
 void	*routine(void *arg);
 void	*monitoring(void *arg);
