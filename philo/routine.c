@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:45:36 by escastel          #+#    #+#             */
-/*   Updated: 2024/03/06 16:49:30 by escastel         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:37:49 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,6 @@ static void	dream(t_philo *philo)
 {
 	print_msg("is sleeping", philo);
 	ft_usleep(philo->control->time_to_sleep);
-}
-
-static void	one_philo(t_philo *philo)
-{
-	pthread_mutex_lock(philo->r_fork);
-	print_msg("has taken a fork", philo);
-	ft_usleep(philo->control->time_to_die);
-	pthread_mutex_unlock(philo->r_fork);
-	return ;
 }
 
 static void	eat(t_philo *philo)
@@ -60,10 +51,15 @@ void	*routine(void *arg)
 	{
 		if (philo->control->num_philos == 1)
 		{
-			one_philo(philo);
+			pthread_mutex_lock(philo->r_fork);
+			print_msg("has taken a fork", philo);
+			ft_usleep(philo->control->time_to_die);
+			pthread_mutex_unlock(philo->r_fork);
 			break ;
 		}
 		eat(philo);
+		if (philo->control->end_flag == 2)
+			break ;
 		dream(philo);
 		think(philo);
 	}

@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:17 by escastel          #+#    #+#             */
-/*   Updated: 2024/03/06 17:12:18 by escastel         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:52:18 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	check_meals(t_control *control)
 	}
 	if (count == control->num_philos)
 	{
-		control->end_flag = 1;
+		control->end_flag = 2;
 		pthread_mutex_unlock(&control->meal);
 		return (1);
 	}

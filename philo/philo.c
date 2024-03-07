@@ -6,7 +6,7 @@
 /*   By: escastel <escastel@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 11:43:21 by escastel          #+#    #+#             */
-/*   Updated: 2024/03/06 18:23:04 by escastel         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:30:19 by escastel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	main(int argc, char **argv)
 		printf("Wrong number of arguments\n");
 		return (1);
 	}
+	if (check_content(argv + 1))
+		return (1);
 	control = (t_control *)malloc(sizeof(t_control));
 	if (!control)
 	{
@@ -58,14 +60,10 @@ int	main(int argc, char **argv)
 		free(control);
 		return (1);
 	}
-	if (check_content(argv + 1))
-	{
-		free(control);
-		return (1);
-	}
 	if (initialize_structures(control, argv + 1, forks))
 		return (1);
-	threads(control);
+	if (threads(control))
+		return (1);
 	ft_clean_program(control);
 	return (0);
 }
